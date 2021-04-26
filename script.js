@@ -9,9 +9,9 @@ const title = document.querySelector('#title')
 const cover = document.querySelector('#cover')
 
 //name of the music files to be displayed as the title.
-const songs = ['calming', 'electronic', 'violin']
+const songs = ['calming', 'electronic', 'violin'];
 
-let songIndex = 2
+let songIndex = 1
 
 //Load song into DOM
 loadSong(songs[songIndex])
@@ -19,8 +19,8 @@ loadSong(songs[songIndex])
 
 function loadSong(song) {
     title.innerText = song
-    audio.src = 'music/ ${song}.mp3'
-    cover.src = 'images/ ${song}.jpg'
+    audio.src = 'music/${song}.mp3'
+    cover.src = 'images/${song}.jpg'
 }
 
 function playSong() {
@@ -72,6 +72,29 @@ function nextSong() {
     playSong()
 }
 
-prevBtn.addEventListener('click', () =>{
+function updateProgress(e) {
+    const {duration, currentTime} = e.srcElement
+    const progressPercent = (currentTime/duration) * 100
+    progress.style.width = '${progressPercent}'
+}
 
+function setProgress(e){
+     const width = this.clientWidth
+     const clickX = e.offsetX
+     const duration = audio.duration
+
+     audio.currentTime = (clickX / width) * duration
+}
+
+
+prevBtn.addEventListener('click', () =>{
+    prevSong()
 })
+
+nextBtn.addEventListener('click', () => {
+    nextSong()
+})
+
+audio.addEventListener('timeupdate', updateProgress)
+
+audio.addEventListener('ended', nextSong)
