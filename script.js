@@ -9,7 +9,7 @@ const title = document.querySelector('#title')
 const cover = document.querySelector('#cover')
 
 //name of the music files to be displayed as the title.
-const songs = ['calming', 'electronic', 'violin'];
+const songs = ['calming', 'electronic', 'violin']
 
 let songIndex = 1
 
